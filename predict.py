@@ -15,7 +15,7 @@ from diffusers import (
 
 # MODEL_ID refers to a diffusers-compatible model on HuggingFace
 # e.g. prompthero/openjourney-v2, wavymulder/Analog-Diffusion, etc
-MODEL_ID = "aklevecz/rds-15"
+MODEL_ID = "wyyadd/sd-1.5"
 MODEL_CACHE = "diffusers-cache"
 
 class Predictor(BasePredictor):
@@ -27,7 +27,7 @@ class Predictor(BasePredictor):
             cache_dir=MODEL_CACHE,
             local_files_only=True,
         ).to("cuda")
-
+        self.pipe.load_lora_weights("rds-15-lora.safetensors")
     @torch.inference_mode()
     def predict(
         self,
